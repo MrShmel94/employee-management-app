@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, #3c3e44, #2f517e);
 }
 
 .App-logo {
@@ -36,3 +42,92 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #134a85, #0054a4, #134a85);
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #0054a4;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+header nav {
+  display: flex;
+}
+
+header nav a {
+  margin-left: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+header .user-info {
+  display: flex;
+  align-items: center;
+}
+
+header .user-info span {
+  margin-right: 1rem;
+  color: white;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  background-color: rgba(0, 84, 164, 0.8);
+  padding: 1rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+aside.hidden {
+  transform: translateX(-100%);
+}
+
+aside nav {
+  display: flex;
+  flex-direction: column;
+}
+
+aside nav a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+.toggle-menu {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0054a4;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+main {
+  padding: 1rem;
+}
+
+
