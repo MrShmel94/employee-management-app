@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
-  const [expertise, setExpertise] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [expertis, setExpertise] = useState('');
+  const [username, setEmail] = useState('');
+  const [rawPassword, setPassword] = useState('');
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://your-backend-url/register', {
-        expertise,
-        email,
-        password,
+      const response = await axios.post('http://localhost:8080/register', {
+        expertis,
+        username,
+        rawPassword,
       });
 
       console.log(response.data);
       // Handle successful registration
+      if (response.status === 200) {
+        // Navigate to the main page
+        navigate('/login');
+      }
     } catch (error) {
       console.error(error);
       // Handle errors
@@ -29,21 +37,21 @@ const Register = () => {
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
+          type="number"
           placeholder="Expertise"
-          value={expertise}
+          value={expertis}
           onChange={(e) => setExpertise(e.target.value)}
         />
         <input
           type="email"
           placeholder="Email"
-          value={email}
+          value={username}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          value={password}
+          value={rawPassword}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Register</button>

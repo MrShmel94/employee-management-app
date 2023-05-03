@@ -1,26 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import MenuContext from './MenuContext';
 
 const Login = () => {
-  const [expertise, setExpertise] = useState('');
+  const [username, setExpertise] = useState('');
   const [password, setPassword] = useState('');
+  const { setUserData } = useContext(MenuContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://your-backend-url/login', {
-        expertise,
+      const response = await axios.post('http://localhost:8080/login', {
+        username,
         password,
       });
 
       if (response.status === 200) {
+        console.log(response.data);
+        localStorage.setItem('jwtToken', response.data.jwtToken);
+        localStorage.setItem('userData', JSON.stringify(response.data.user));
+        setUserData(response.data.user);
         // Navigate to the main page
         navigate('/main');
+      } else if (response.status === 401) {
+        // Show an error message: Invalid credentials
+        alert("Invalid credentials");
+      } else if (response.status === 404) {
+        // Redirect to the registration page
+        navigate('/registration');
       } else {
-        // Handle non-200 status, e.g., show an error message
+        // Handle other non-200 status, e.g., show an error message
         console.error('Login failed:', response.statusText);
       }
     } catch (error) {
@@ -35,8 +47,8 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Expertise"
-          value={expertise}
+          placeholder="username"
+          value={username}
           onChange={(e) => setExpertise(e.target.value)}
         />
         <input

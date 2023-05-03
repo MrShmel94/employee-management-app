@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import MenuContext from './MenuContext';
 
 const SideMenu = () => {
-  const [menuVisible, setMenuVisible] = useState(false);
+  const { menuVisible, setMenuVisible } = useContext(MenuContext);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
